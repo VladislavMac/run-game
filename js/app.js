@@ -1,43 +1,53 @@
+"use strict"
+
 const field = document.querySelector('.field');
 
-const platformSettings = {
-    platformHeight : 30
+const settings = {
+    platform : {
+        platformHeight : 30
+    },
+    player : {
+        playerHeight : 10,
+        playerWidth : 3.5,
+        jumpHeight : 6
+    },
+    blockage : {
+        blockageWidth : 3,
+        blockageHeight : 5,
+        blockageX : 100,
+    }
 }
 
-const playerSettings = {
-    playerHeight : 10,
-    playerWidth : 3.5,
-    jumpHeight : 6
-}
-
-const blockageSettings = {
-    blockageWidth : 3,
-    blockageHeight : 5,
-    blockageX : 100,
-}
-
-const move = new Move();
-const platform = new Platform({height : platformSettings.platformHeight});
-const player = new Player({
-    width : playerSettings.playerWidth,
-    height : playerSettings.playerHeight,
-    platformHeight : platformSettings.platformHeight
+// create platform
+const platform = new Platform({
+    height : settings.platform.platformHeight
 });
 
-field.appendChild(platform);
-field.appendChild(player);
+// create player
+const player = new Player({
+    width          : settings.player.playerWidth,
+    height         : settings.player.playerHeight,
+    platformHeight : settings.platform.platformHeight
+});
 
+field.appendChild(player); // add player
+field.appendChild(platform); // add platform
 
+const move = new Move();
 
 setInterval(() =>{
-    const blockage = new Blockage({
-        width : blockageSettings.blockageWidth,
-        height : blockageSettings.blockageHeight,
-        x : blockageSettings.blockageX,
+    // create new blockage
+    const blockage = new Blockage({ 
+        width          : settings.blockage.blockageWidth,
+        height         : settings.blockage.blockageHeight,
+        x              : settings.blockage.blockageX,
+        platformHeight : settings.platform.platformHeight
     });
 
+    // add on field blockage
     field.appendChild(blockage);
     
+    // start moving blockage
     move.moveLeft({
         blockage : blockage
     })
@@ -52,15 +62,19 @@ window.addEventListener('keydown', (event) =>{
         possiblyJump = false;
 
         move.jump({
-            player : player,
-            jumpHeight : playerSettings.jumpHeight
+            player     : player,
+            jumpHeight : settings.player.jumpHeight
         });
-        setTimeout(()=>{
+
+        // after jump we fall
+        setTimeout(()=>{ 
             move.fall({
-                player : player,
-                jumpHeight : playerSettings.jumpHeight
+                player     : player,
+                jumpHeight : settings.player.jumpHeight
             })
-            setTimeout(()=>{
+
+            // set possibly jump 
+            setTimeout(()=>{ 
                 possiblyJump = true;
             }, 350)
         }, 370)
