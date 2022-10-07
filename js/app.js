@@ -75,11 +75,34 @@ function checkingPlayerDeath({player}){
                 return true
             }
         }
-        ///////////////////////////////////////////
     }
     return false;
 }
 
+
+window.addEventListener('click', (event) =>{
+    if( possiblyJump == true && checkingPlayerDeath({player: player}) == false ){
+        possiblyJump = false;
+
+        move.jump({
+            player     : player,
+            jumpHeight : settings.player.jumpHeight
+        });
+
+        // after jump we fall
+        setTimeout(()=>{ 
+            move.fall({
+                player     : player,
+                jumpHeight : settings.player.jumpHeight
+            })
+
+            // set possibly jump 
+            setTimeout(()=>{ 
+                possiblyJump = true;
+            }, 300)
+        }, 370)
+    }
+})
 window.addEventListener('keydown', (event) =>{
     if(event.key == 'ArrowUp' && possiblyJump == true && checkingPlayerDeath({player: player}) == false ){
         possiblyJump = false;

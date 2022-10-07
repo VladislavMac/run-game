@@ -36,4 +36,11 @@ body, html {
   background: red;
   position: absolute;
 }
+
+.counter {
+  position: absolute;
+  z-index: 3;
+  left: 2vw;
+  height: 2vh;
+}
 /*# sourceMappingURL=style.css.map */
