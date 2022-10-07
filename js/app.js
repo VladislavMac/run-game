@@ -12,8 +12,8 @@ const settings = {
         jumpHeight : 6
     },
     blockage : {
-        blockageWidth : 3,
-        blockageHeight : 5,
+        blockageWidth : 3.5,
+        blockageHeight : 10,
         blockageX : 100,
     }
 }
@@ -35,7 +35,12 @@ field.appendChild(platform); // add platform
 
 const move = new Move();
 
-setInterval(() =>{
+const spawnBlockages = setInterval(() =>{
+    if(checkingPlayerDeath({player : player}) == true){
+        clearInterval(spawnBlockages)
+        return false;
+    }
+
     // create new blockage
     const blockage = new Blockage({ 
         width          : settings.blockage.blockageWidth,
@@ -51,14 +56,32 @@ setInterval(() =>{
     move.moveLeft({
         blockage : blockage
     })
-}, 1500)
+}, 2000)
 
 
 let jumpCount = 0;
 let possiblyJump = true;
 
+function checkingPlayerDeath({player}){
+    const playerInfo = player.getBoundingClientRect();
+    const allBlockages = document.querySelectorAll('.blockage');
+
+    for( let i = 0; i < allBlockages.length; i++ ){
+        const blockageInfo = allBlockages[i].getBoundingClientRect();
+        if( blockageInfo.y == playerInfo.y || blockageInfo.y < playerInfo.bottom){
+            if( blockageInfo.x > playerInfo.x && blockageInfo.x < ( playerInfo.x + playerInfo.width) ){ 
+                return true
+            }else if( blockageInfo.x < playerInfo.x && playerInfo.x < ( blockageInfo.x + blockageInfo.width ) ){
+                return true
+            }
+        }
+        ///////////////////////////////////////////
+    }
+    return false;
+}
+
 window.addEventListener('keydown', (event) =>{
-    if(event.key == 'ArrowUp' && possiblyJump == true){
+    if(event.key == 'ArrowUp' && possiblyJump == true && checkingPlayerDeath({player: player}) == false ){
         possiblyJump = false;
 
         move.jump({
@@ -76,7 +99,7 @@ window.addEventListener('keydown', (event) =>{
             // set possibly jump 
             setTimeout(()=>{ 
                 possiblyJump = true;
-            }, 350)
+            }, 300)
         }, 370)
     }
 })

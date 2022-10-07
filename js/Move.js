@@ -13,6 +13,10 @@ class Move{
                 jumpCount = 0;
             }else{
                 setTimeout(() =>{
+                    if(checkingPlayerDeath({player : player}) == true){
+                        leftCount = 0;
+                        return;
+                    }
                     moveUp()
                 },25)
             } 
@@ -33,6 +37,10 @@ class Move{
                 jumpCount = 0;
             }else{
                 setTimeout(() =>{
+                    if(checkingPlayerDeath({player : player}) == true){
+                        leftCount = 0;
+                        return;
+                    }
                     moveDown()
                 },25)
             }
@@ -50,10 +58,15 @@ class Move{
             blockageLeft = leftCount;
             blockage.style.left = blockageLeft + 'vw';
 
-            if( blockageLeft < 0 ){
+            if( blockageLeft < -5 ){
                 leftCount = 0;
+                blockage.remove()
             }else{
                 setTimeout(() =>{
+                    if(checkingPlayerDeath({player : player}) == true){
+                        leftCount = 0;
+                        return;
+                    }
                     move()
                 },25)
             }
