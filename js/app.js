@@ -99,7 +99,7 @@ window.addEventListener('click', (event) =>{
             setTimeout(()=>{ 
                 possiblyJump = true;
             }, 300)
-        }, 500)
+        }, 650)
     }
 })
 window.addEventListener('keydown', (event) =>{
