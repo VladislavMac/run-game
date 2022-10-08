@@ -7,13 +7,13 @@ const settings = {
         platformHeight : 30
     },
     player : {
-        playerHeight : 10,
-        playerWidth : 3.5,
+        playerHeight : 15,
+        playerWidth : 8,
         jumpHeight : 6
     },
     blockage : {
-        blockageWidth : 3.5,
         blockageHeight : 10,
+        blockageWidth : 6,
         blockageX : 100,
     }
 }
@@ -79,7 +79,6 @@ function checkingPlayerDeath({player}){
     return false;
 }
 
-
 window.addEventListener('click', (event) =>{
     if( possiblyJump == true && checkingPlayerDeath({player: player}) == false ){
         possiblyJump = false;
@@ -100,7 +99,7 @@ window.addEventListener('click', (event) =>{
             setTimeout(()=>{ 
                 possiblyJump = true;
             }, 300)
-        }, 370)
+        }, 400)
     }
 })
 window.addEventListener('keydown', (event) =>{

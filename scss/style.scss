@@ -13,24 +13,33 @@ body, html{
     width: 100%;
     height: 100%;
     z-index: 0;
-    background: rgb(237, 255, 220);
     display: flex;
+    background-image: url('../img/background.png');
+    background-repeat: repeat-x;
+    background-size: 140vh;
 }
 
 .platform{
     z-index: 1;
-    background: rgb(49, 165, 38);
     position: relative;
+    background-image: url('../img/platform.png');
+    background-repeat: repeat-x;
+    background-size: 15vh;
 }
 
 .player{
     position: absolute;
+    background-image: url('../img/player.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .blockage{
     z-index: 1;
-    background: red;
     position: absolute;
+    background-image: url('../img/blockage.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
 } 
 
 .counter{
