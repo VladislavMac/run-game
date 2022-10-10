@@ -14,11 +14,11 @@ class Move{
             }else{
                 setTimeout(() =>{
                     if(checkingPlayerDeath({player : player}) == true){
-                        leftCount = 0;
+                        jumpCount = 0;
                         return;
                     }
                     moveUp()
-                },25)
+                },50)
             } 
         }
         moveUp();
@@ -38,11 +38,11 @@ class Move{
             }else{
                 setTimeout(() =>{
                     if(checkingPlayerDeath({player : player}) == true){
-                        leftCount = 0;
+                        jumpCount = 0;
                         return;
                     }
                     moveDown()
-                },25)
+                },60)
             }
         }
         moveDown()

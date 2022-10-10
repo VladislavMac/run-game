@@ -4,34 +4,61 @@ const field = document.querySelector('.field');
 
 const settings = {
     platform : {
-        platformHeight : 30
+        height : 30
     },
     player : {
-        playerHeight : 15,
-        playerWidth : 8,
+        height : 15,
+        width : 8,
         jumpHeight : 6
     },
     blockage : {
-        blockageHeight : 10,
-        blockageWidth : 6,
-        blockageX : 100,
+        height : 10,
+        width : 6,
+        x : 100,
+    },
+    counter : {
+        x : 5,
+        y : 10
     }
 }
 
 // create platform
 const platform = new Platform({
-    height : settings.platform.platformHeight
+    height : settings.platform.height
 });
 
 // create player
 const player = new Player({
-    width          : settings.player.playerWidth,
-    height         : settings.player.playerHeight,
-    platformHeight : settings.platform.platformHeight
+    width          : settings.player.width,
+    height         : settings.player.height,
+    platformHeight : settings.platform.height
 });
+
+const counter = new Counter({
+    x : settings.counter.x,
+    y : settings.counter.y,
+})
 
 field.appendChild(player); // add player
 field.appendChild(platform); // add platform
+field.appendChild(counter) // add counter
+
+function setScore(){
+    const counter = document.querySelector('.counter');
+    let count = 0;
+
+    const updateScore = setInterval(() => {
+        if(checkingPlayerDeath({player : player}) == true){
+            console.log(`score : ${count}`)
+            clearInterval(updateScore)
+            return false;
+        }
+        
+        count++;
+        counter.innerHTML = `score : <span>${count}</span>`
+    },1000)
+}
+setScore();
 
 const move = new Move();
 
@@ -43,10 +70,10 @@ const spawnBlockages = setInterval(() =>{
 
     // create new blockage
     const blockage = new Blockage({ 
-        width          : settings.blockage.blockageWidth,
-        height         : settings.blockage.blockageHeight,
-        x              : settings.blockage.blockageX,
-        platformHeight : settings.platform.platformHeight
+        width          : settings.blockage.width,
+        height         : settings.blockage.height,
+        x              : settings.blockage.x,
+        platformHeight : settings.platform.height
     });
 
     // add on field blockage
@@ -57,10 +84,6 @@ const spawnBlockages = setInterval(() =>{
         blockage : blockage
     })
 }, 2000)
-
-
-let jumpCount = 0;
-let possiblyJump = true;
 
 function checkingPlayerDeath({player}){
     const playerInfo = player.getBoundingClientRect();
@@ -78,6 +101,8 @@ function checkingPlayerDeath({player}){
     }
     return false;
 }
+
+let possiblyJump = true;
 
 window.addEventListener('click', (event) =>{
     if( possiblyJump == true && checkingPlayerDeath({player: player}) == false ){
@@ -98,7 +123,7 @@ window.addEventListener('click', (event) =>{
             // set possibly jump 
             setTimeout(()=>{ 
                 possiblyJump = true;
-            }, 300)
-        }, 570)
+            }, 600)
+        }, 450)
     }
 })

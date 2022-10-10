@@ -7,6 +7,7 @@ body, html{
     width: 100%;
     height: 100%;
     overflow: hidden;
+    font-family: 'Silkscreen', cursive;
 }
 
 .field{
@@ -14,22 +15,22 @@ body, html{
     height: 100%;
     z-index: 0;
     display: flex;
-    background-image: url('../img/background.png');
+    background-image: url('../img/background.jpg');
     background-repeat: repeat-x;
-    background-size: 140vh;
+    background-size: 50% 70%;
 }
 
 .platform{
     z-index: 1;
     position: relative;
-    background-image: url('../img/platform.png');
-    background-repeat: repeat-x;
-    background-size: 7vw 30vh;
+    background-image: url('../img/platform.jpg');
+    background-repeat: repeat;
+    background-size: 6vw 10vh;
 }
 
 .player{
     position: absolute;
-    background-image: url('../img/player.png');
+    background-image: url('../img/player.gif');
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
@@ -37,7 +38,7 @@ body, html{
 .blockage{
     z-index: 1;
     position: absolute;
-    background-image: url('../img/blockage.png');
+    background-image: url('../img/blockage.gif');
     background-repeat: no-repeat;
     background-size: 100% 100%;
 } 
@@ -45,6 +46,13 @@ body, html{
 .counter{
     position: absolute;
     z-index: 3;
-    left: 2vw;
-    height: 2vh;
+    
+    font-size: 2.5vw;
+    color: yellow;
+
+    min-width: 10vw;
+    height: 15vh;
+    span{
+        font-size: 2vw;
+    }
 }
